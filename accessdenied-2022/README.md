@@ -4,7 +4,7 @@
 
 ### Files
 
-[Download Files](https://github.com/CodeEatSleepRepeatPY/website/raw/gh-pages/accessdenied-2022/files/shellcode.zip)
+[Download Files](https://github.com/nomnom-CTF/website/raw/gh-pages/accessdenied-2022/files/shellcode.zip)
 
 ### Description
 
@@ -35,7 +35,7 @@ r.interactive()
 
 ### Files
 
-[Download Files](https://github.com/CodeEatSleepRepeatPY/website/raw/gh-pages/accessdenied-2022/files/ret2system.zip)
+[Download Files](https://github.com/nomnom-CTF/website/raw/gh-pages/accessdenied-2022/files/ret2system.zip)
 
 ### Description
 
@@ -113,7 +113,7 @@ print("".join(flag))
 
 ### Files
 
-[Download Files](https://github.com/CodeEatSleepRepeatPY/website/raw/gh-pages/accessdenied-2022/files/enormous)
+[Download Files](https://github.com/nomnom-CTF/website/raw/gh-pages/accessdenied-2022/files/enormous)
 
 ### Description
 
