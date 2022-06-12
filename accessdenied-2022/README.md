@@ -43,7 +43,7 @@ The challenge asks us for 2 inputs, the string we want to store and our buffer o
 
 ### Solution
 
-Since the challenge uses system within the binary itself, we don't need to leak libc, we can just use plt@system to get a shell. In order to get a shell, we need to call `plt@system("/bin/sh")` but after looking through gdb and ida I couldn't find the `/bin/sh` string. This is where we can make use of the first input we're asked to give; Since the program stores the first input into memory we can just supply the `bin/sh` to that input, and we will have it saved in memory. After doing all that, we still need to take care of the stack alignment issues ([read more about stack alignment issues here](https://ropemporium.com/guide.html#Common%20pitfalls)), so we will need to add a return before calling system and that should be it. Running the following code will give us the flag:
+Since the challenge uses system within the binary itself, we don't need to leak libc, we can just use plt@system to get a shell. In order to get a shell, we need to call `system@plt("/bin/sh")` but after looking through gdb and ida I couldn't find the `/bin/sh` string. This is where we can make use of the first input we're asked to give; Since the program stores the first input into memory we can just supply the `bin/sh` to that input, and we will have it saved in memory. After doing all that, we still need to take care of the stack alignment issues ([read more about stack alignment issues here](https://ropemporium.com/guide.html#Common%20pitfalls)), so we will need to add a return before calling system and that should be it. Running the following code will give us the flag:
 
 ```python
 from pwn import *
