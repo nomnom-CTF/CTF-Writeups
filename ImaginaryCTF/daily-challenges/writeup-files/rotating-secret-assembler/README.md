@@ -54,7 +54,7 @@ n1 = P*Q_1
 n2 = P*Q_2
 ```
 
-from this we can deduct that P divides n1 and P divides n2. Now it becomes fairly obvious that taking the gcd of n1 and n2 should result in some multiple of P. After calculating gcd(n1,n2) and plugging the result into factorDB we'll be able to figure out what P is and hence get Q_1 by dividing n1 by P. After getting P and Q_1, all that's left is to perform textbook RSA and we'll get the flag. 
+from this we can deduct that P divides n1 and P divides n2. Now it becomes fairly obvious that taking the gcd of n1 and n2 should result in P since P and Q_i are both prime numbers. After calculating gcd(n1,n2) and seeing what our P is, we'll be able to get Q_1 by dividing n1 by P. Finally, after getting P and Q_1, all that's left is to perform textbook RSA and we'll get the flag. 
 
 Solver Script:
 ```python
