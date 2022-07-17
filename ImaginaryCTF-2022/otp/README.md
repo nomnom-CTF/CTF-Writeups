@@ -91,3 +91,4 @@ for index in range(376):
         ans += '1'
 print(ans)     
 ```
+`flag: ictf{benfords_law_catching_tax_fraud_since_1938}`
