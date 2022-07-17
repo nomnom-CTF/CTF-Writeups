@@ -1,3 +1,7 @@
+## ImaginaryCTF-2022 OTP Challenge Writeup
+
+[Link To Writeup](/ImaginaryCTF-2022/otp/README.md)
+
 ## vsCTF Strongest RSA Challenge Writeup
 
 [Link To Writeup](/vsCTF-2022/README.md)
