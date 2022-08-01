@@ -1,3 +1,7 @@
+## UIUCTF-2022 asr Challenge Writeup
+
+[Link To Writeup](/uiuctf-2022/README.md)
+
 ## ImaginaryCTF-2022 OTP Challenge Writeup
 
 [Link To Writeup](/ImaginaryCTF-2022/otp/README.md)
